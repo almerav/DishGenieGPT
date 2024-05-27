@@ -3,17 +3,17 @@ import pandas as pd
 import openai
 
 # Setup the OpenAI API client using the secret API key
-openai.api_key = st.secrets["API_key"]["api_key"]
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # Function to generate response from GPT API
 def generate_response(prompt):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=500,  # Increase max_tokens to allow for more detailed responses
+        max_tokens=500,  # Adjust as needed
         temperature=0.7,
     )
-    return response.choices[0].message['content'].strip()
+    return response['choices'][0]['message']['content'].strip()
 
 # Function to fetch response and store it in session state
 def fetch_response(prompt, session_key):
